@@ -12,9 +12,9 @@ You have to initialize JSXC with some options so it can learn about your environ
 Arguments
 ^^^^^^^^^
 * ``options.app_name?`` (string)
-  Name of container application (e.g. Nextcloud or SOGo).
+    Name of container application (e.g. Nextcloud or SOGo).
 
-  Default: ``"web applications"``
+    Default: ``"web applications"``
 * ``options.defaultLang?`` (string)
     Default language.
 
