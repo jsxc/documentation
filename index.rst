@@ -9,4 +9,9 @@ This version of the documentation covering JSXC |release| has been rendered at: 
    :maxdepth: 2
    :caption: Contents:
 
+   getting-started/index
+   contributor-guide
    api
+   howtos/index
+   development/index
+   references/index
