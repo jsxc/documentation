@@ -8,24 +8,56 @@ API
 General
 -------
 
-jsxc.init(options?)
-^^^^^^^^^^^^^^^^^^^
-You have to initialize JSXC with some options so it can learn about your environment. If you have already established session, those will be restored.
+<constructor> JSXC(options?)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+You have to initialize JSXC with some options so it can learn about your environment. If you have already some established sessions, those will be restored.
 
 Arguments
 """""""""
-* ``options.app_name?`` (string)
+* ``options.appName?`` (string)
     Name of container application (e.g. Nextcloud or SOGo).
 
     Default: ``"web applications"``
-* ``options.defaultLang?`` (string)
+* ``options.lang?`` (string)
     Default language.
 
     Default: ``"en"``
+* ``options.autoLang?`` (boolean)
+    Auto language detection.
+
+    Default: ``true``
 * ``options.rosterAppend?`` (string)
     Query string for element which should contain your contact list.
 
     Default: ``"body"``
+* ``options.rosterVisibility?`` ("shown"|"hidden")
+    Default roster visibility.
+
+    Default: ``"shown"``
+* ``options.hideOfflineContacts?`` (boolean)
+    Set to true if you want to hide offline contacts.
+
+    Default: ``false``
+* ``options.loadOptions?`` (jid: string, password: string) => Promise<{[id: string]: {[key: string]: any}}>
+    If you store option changes with ``options.onOptionChange`` you probably
+    want to restore them on the next login. Just return an object with all id's
+    and the corresponding values.
+
+    Default: ``undefined``
+* ``options.loadConnectionOptions?`` (username: string, password: string) => Promise<ISettings>
+    This option can provide connection options for every form login (form
+    watcher, login dialog).
+
+    Default: ``undefined``
+* ``options.onOptionChange?`` (id: string, key: string, value: any, exportId: () => any) => void
+    This function is called every time the user changes a option.
+
+    Default: ``undefined``
+* ``options.getUsers?`` (search: string) => Promise<{[uid: string]: string}>
+    If you like to provide auto suggestions if the user is adding a contact, you
+    should add this function. Key has be a JID or UID and value a display name.
+
+    Default: ``undefined``
 * ``options.RTCPeerConfig.ttl?`` (number)
     Time-to-live for config from url.
 
@@ -36,6 +68,10 @@ Arguments
     Default: ``[{ urls: 'stun:stun.stunprotocol.org' }]``
 * ``options.onlineHelp?`` (string)
     Default: ``http://www.jsxc.org/manual.html``
+* ``options.storage?`` (localStorage|sessionStorage)
+    Storage backend. Has to implement the Storage interface of the Web Storage API.
+
+    Default: ``localStorage``
 * ``options.disabledPlugins?`` (array<string>)
     Default: ``[]``
 * ``options.connectionCallback?`` ((jid: string, status: number, condition?: string) => void)
@@ -44,15 +80,10 @@ Arguments
     If the user requests to go online again, this function is called. Default: The login dialog is shown.
 
     Default: ``loginDialog``
-* ``options.xmppBoshUrl?`` (string)
-    If user tries to login with login dialog, this value is used as BOSH url.
 
-    Default: ``undefined``
-
-Returns
-"""""""
-``number``
-    Number of restored connections.
+jsxc.numberOfCachedAccounts: number
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Number of restored connections.
 
 jsxc.start(boshUrl, jid, sid, rid)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -110,8 +141,10 @@ Returns
 ``Promise<void>``
     Promise is resolved if the connection is established.
 
-jsxc.watchForm(formElement, usernameElement, passwordElement, settingsCallback)
+jsxc.watchForm(formElement, usernameElement, passwordElement)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Watch a login form and use credentials to establish an XMPP connection. You can
+provide options with ``options.loadConnectionOptions``.
 
 Arguments
 """""""""
@@ -121,41 +154,6 @@ Arguments
     If the form is submitted get the username from this element.
 * ``passwordElement`` (JQuery)
     If the form is submitted get the password from this element.
-* ``settingsCallback`` ((username: string, password: string) => Promise<Settings>)
-    This callback is called after the form was submitted and is used to get or generate all settings to create a new XMPP connection. The
-    provided username and password are the values provided by the ``usernameElement`` and ``passwordElement`` element.
-
-    The returned settings should match this interface::
-
-        interface Settings {
-            disabled?: boolean,
-            xmpp?: {
-                url?: string,
-                node?: string,
-                domain?: string,
-                resource?: string,
-            }
-        }
-
-Services
---------
-
-jsxc.register(service, domain, callback?)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Arguments
-"""""""""
-* ``service`` (string)
-    The URL of your BOSH service.
-* ``domain`` (string)
-    Register a new user with this domain.
-* ``callback?`` ((form: Form) => Promise<Form>)
-    If you like to display a custom form, provide a callback.
-
-Returns
-"""""""
-``Promise<void>``
-    Promise is resolved if the user was successfully registered.
 
 User interface
 --------------
@@ -206,7 +204,27 @@ Returns
 ``number``
     Number of deleted items.
 
-jsxc.testBOSHServer(url, domain)
+Services
+--------
+
+JSXC.register(service, domain, callback?)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Arguments
+"""""""""
+* ``service`` (string)
+    The URL of your BOSH service.
+* ``domain`` (string)
+    Register a new user with this domain.
+* ``callback?`` ((form: Form) => Promise<Form>)
+    If you like to display a custom form, provide a callback.
+
+Returns
+"""""""
+``Promise<void>``
+    Promise is resolved if the user was successfully registered.
+
+JSXC.testBOSHServer(url, domain)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Allows you test if a BOSH server is reachable and serving the given domain.
 

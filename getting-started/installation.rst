@@ -45,29 +45,25 @@ Configure
 Add the following lines to our ``jsxc.example.js``::
 
     $(function() {
-        jsxc.init();
+        let jsxc = new JSXC({
+            loadConnectionOptions: function(username, password) {
+                return Promise.resolve({
+                    xmpp: {
+                    url: '/http-bind/',
+                    domain: 'localhost',
+                    }
+                });
+            }
+        });
 
         let formElement = $('#form');
         let usernameElement = $('#username');
         let passwordElement = $('#password');
 
-        function getSettings(username, password) {
-        return Promise.resolve({
-            xmpp: {
-            url: '/http-bind/',
-            domain: 'localhost',
-            }
-        });
-        }
-
-        jsxc.watchForm(formElement, usernameElement, passwordElement, getSettings);
+        jsxc.watchForm(formElement, usernameElement, passwordElement);
     });
 
 Adjust the values according to your application.
-
-Attach handler
---------------
-TODO
 
 Customize style
 ---------------
