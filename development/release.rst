@@ -6,10 +6,7 @@ Creating a release
 - update example
 - create build
 
-  - increase version number
-  - run ``grunt build:release``
-  - create signed commit ``git add build/ && git commit -a -S``
-  - sign build package ``gpg --detach-sign archives/BUILD``
+  - increase version number in ``package.json`` - run ``node scripts/build-release.js`` (use ``--release`` for stable releases)
 
 - update documentation
 
