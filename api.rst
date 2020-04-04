@@ -155,6 +155,33 @@ Arguments
 * ``passwordElement`` (JQuery)
     If the form is submitted get the password from this element.
 
+jsxc.watchLogoutClick(element)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Watch a logout element and disconnect JSXC before the original click action is processed.
+
+Arguments
+"""""""""
+* ``element`` (JQuery)
+    Logout element which should be watched for a click event.
+
+jsxc.showLoginBox(username?)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Opens a login modal with field for username and password.
+
+Arguments
+"""""""""
+* ``username?`` (string)
+    Username for login can be predefined.
+
+jsxc.disconnect()
+^^^^^^^^^^^^^^^^^
+Disconnect all accounts.
+
+Returns
+"""""""
+``Promise<void>``
+    Promise is resolved if all accounts are disconnected.
+
 User interface
 --------------
 
@@ -204,6 +231,101 @@ Returns
 ``number``
     Number of deleted items.
 
+jsxc.getAccount(uid)
+^^^^^^^^^^^^^^^^^^^^
+
+Arguments
+"""""""""
+* ``uid`` (string)
+    UID of account. Usually the bare jid.
+
+Returns
+"""""""
+``Account``
+    Account object.
+
+Account
+-------
+
+account.getContact(jid)
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Arguments
+"""""""""
+* ``jid`` (string)
+    Bare JID of contact.
+
+Returns
+"""""""
+``Contact|MultiUserContact``
+    Depending on the kind of user, a contact or multi-user contact is returned.
+
+account.createMultiUserContact(jid, nickname, displayName?, password?)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Creates a new MUC room.
+
+Arguments
+"""""""""
+* ``jid`` (string)
+    Bare JID of new multi-user contact.
+* ``nickname`` (string)
+    Desired nickname in MUC room.
+* ``displayName?`` (string)
+    Contact name in roster.
+* ``password?`` (string)
+    Protect room with password.
+
+Returns
+"""""""
+``MultiUserContact``
+    Multi-user contact is returned.
+
+Contact
+-------
+
+contact.openChatWindow()
+^^^^^^^^^^^^^^^^^^^^^^^^
+Opens the chat window.
+
+contact.openChatWindowProminently()
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Opens the chat window and highlights it.
+
+contact.addToContactList()
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+Adds contact to roster or bookmark storage.
+
+MultiUserContact extends Contact
+--------------------------------
+
+multiUserContact.join()
+^^^^^^^^^^^^^^^^^^^^^^^
+Join the given room.
+
+multiUserContact.leave()
+^^^^^^^^^^^^^^^^^^^^^^^^
+Leave the given room.
+
+multiUserContact.destroy()
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+Destroy the given room.
+
+multiUserContact.getRoomConfigurationForm()
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Returns
+"""""""
+``JSON``
+    Room configuration form as json.
+
+multiUserContact.submitRoomConfigurationForm(form)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Arguments
+"""""""""
+* ``form`` (JSON)
+    The filled room configuration form previously retrieved via ``multiUserContact.getRoomConfigurationForm()``.
+
 Services
 --------
 
@@ -243,3 +365,12 @@ Returns
     In the error case the promise is resolved with an error object. You can call ``toString()`` to get the
     error message in english or ``getErrorCode()`` to get a more generic error code. You find a list of all
     messages and codes in ``src/api/v1/testBOSHServer.ts``.
+
+JSXC.version
+^^^^^^^^^^^^
+Shows the current version of JSXC.
+
+Returns
+"""""""
+``string``
+    Version number of JSXC.
