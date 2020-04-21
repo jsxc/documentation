@@ -13,7 +13,7 @@ Installation
 Overview
 --------
 #. Install web server, xmpp server, (bosh server)
-#. Download and extract `jsxc <https://github.com/jsxc/jsxc/releases>` to a folder of your choice (e.g. ``jsxc.example``)
+#. Download and extract `jsxc <https://github.com/jsxc/jsxc/releases/latest>`_ (you have to use the tar file) to a folder of your choice (e.g. ``jsxc.example``)
 #. Create two folders in your directory ``css`` and ``js``
 #. Create a file in each folder: ``jsxc.example.css`` in ``css`` and ``jsxc.example.js`` in ``js``
 #. Adjust permissions
