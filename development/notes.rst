@@ -32,8 +32,9 @@ We use `yarn <https://yarnpkg.com>`_ as our package manager. Please follow there
     concatenate, convert, and validate our source files. It's likely that you still find it
     at some places.
 
-To build the project, just run ``yarn start`` in its top-level directory. If you like to start
-a development server and watch all files for changes, some project offer you `yarn dev`.
+First install all dependencies with `yarn install`. To build the project, just run ``yarn start`` 
+in its top-level directory. If you like to start a development server and watch all files for 
+changes, some project offer you `yarn dev`.
 
 Now you are ready for development.
 
