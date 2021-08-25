@@ -41,7 +41,7 @@ Now you are ready for development.
 
 Workflow
 --------
-- run ``yarn start`` in the project root folder
+- run ``yarn watch`` in the project root folder
 - make your modifications in `src/` and `scss/`
 - check your results on `example/index.html`
 - `git add ...`
@@ -53,7 +53,14 @@ Notes
 -----
 Yarn commands
 ^^^^^^^^^^^^^
-TODO
+A few helpful yarn commands you should know to simplify your life.
+
+- `start` create a production ready build
+- `watch` create a development build and rerun on file changes
+- `dev` similar to `watch`, but it will start a development server
+- `fix` beautifies all files and makes sure the pre-commit hook is satisfied
+
+To run a command, execute `yarn COMMAND`.
 
 Core Structure
 ^^^^^^^^^^^^^^
