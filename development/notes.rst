@@ -44,9 +44,9 @@ Workflow
 - run ``yarn watch`` in the project root folder
 - make your modifications in `src/` and `scss/`
 - check your results on `example/index.html`
-- `git add ...`
-- `git commit` (should run our pre-commit hook)
-- `git push`
+- ``git add ...``
+- ``git commit`` (should run our pre-commit hook)
+- ``git push``
 
 
 Notes
@@ -55,10 +55,10 @@ Yarn commands
 ^^^^^^^^^^^^^
 A few helpful yarn commands you should know to simplify your life.
 
-- `start` create a production ready build
-- `watch` create a development build and rerun on file changes
-- `dev` similar to `watch`, but it will start a development server
-- `fix` beautifies all files and makes sure the pre-commit hook is satisfied
+- ``start`` create a production ready build
+- ``watch`` create a development build and rerun on file changes
+- ``dev`` similar to ``watch``, but it will start a development server
+- ``fix`` beautifies all files and makes sure the pre-commit hook is satisfied
 
 To run a command, execute `yarn COMMAND`.
 
